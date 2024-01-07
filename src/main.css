@@ -4,7 +4,21 @@ body {
   align-items: center;
   justify-content: space-around;
   flex-direction:column;
-  height: calc(100vh - 100px);
   background: hsl(98 35% 55% / 90%);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.instructions {
+  box-sizing: border-box;
+  background: hsl(-95 35% 55% / 75%);
+  margin: 10px 0 20px;
+  padding: 5px 10px;
+  max-height: 80px;
+  width: calc(100vw - 100px);
+  overflow-y: scroll;
+  display: block;
+}
+
+.instructions > p {
+  margin: 0 auto;
 }

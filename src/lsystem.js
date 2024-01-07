@@ -70,7 +70,6 @@ function createLSystem({lSystem, variables, constants, rules, iterationCount}) {
     acc = acc + curr;
     return acc
   }, '');
-  console.log('curr', lSystem);
 
   return createLSystem({
     lSystem,
@@ -188,11 +187,9 @@ export function generateLines({
     rules,
     iterationCount: iterations,
   });
-  console.log('instructions', instructions)
 
+  // a set of line segment points which will be used to draw the l-system
   const vectors = draw(instructions, angle)
 
-  console.log('maybe vectors?', vectors)
-  // return a set of line segment points which will be used to draw the l-system
-  return vectors;
+  return [instructions, vectors];
 }
