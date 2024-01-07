@@ -3,6 +3,7 @@
     "bar": "baz"
   },
   "systemA": {
+    "name": "A",
     "axiom": "A",
     "variables": ["A", "B"],
     "constants": [],
@@ -13,6 +14,7 @@
     "iterations": 7
   },
   "systemB": {
+    "name": "B",
     "axiom": "0",
     "variables": ["0", "1"],
     "constants": ["[", "]"],
@@ -23,6 +25,7 @@
     "iterations": 3
   },
   "systemC": {
+    "name": "C",
     "axiom": "F",
     "variables": ["F"],
     "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
@@ -32,7 +35,43 @@
     "angle": 22.7,
     "iterations": 4
   },
+  "systemD": {
+    "name": "D",
+    "axiom": "G",
+    "variables": ["F", "G"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
+    "rules": {
+      "F": "FF",
+      "G": "F[-G]+F[G[-/F[\\^F]]]"
+    },
+    "angle": 20,
+    "iterations": 5
+  },
+  "systemE": {
+    "name": "E",
+    "axiom": "F",
+    "variables": ["F"],
+    "constants": ["[", "]", "+", "-","^", "&"],
+    "rules": {
+      "F": "FF-[-F+F+F]+[^F^F&F]F"
+    },
+    "angle": 23,
+    "iterations": 4
+  },
+  "systemF": {
+    "name": "F",
+    "axiom": "F",
+    "variables": ["F", "G"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
+    "rules": {
+      "F": "F[+G]GG[-G/F[&GFF[\\G]]]",
+      "G": "FF-[-F+F+F]+[^FF&F]F"
+    },
+    "angle": 22.7,
+    "iterations": 3
+  },
   "systemG": {
+    "name": "G",
     "axiom": "A",
     "variables": ["A", "F", "S"],
     "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
@@ -44,7 +83,8 @@
     "angle": 22.7,
     "iterations": 7
   },
-  "systemF": {
+  "systemH": {
+    "name": "H",
     "axiom": "F",
     "variables": ["A", "F", "S"],
     "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
@@ -54,25 +94,16 @@
     "angle": 22.7,
     "iterations": 4
   },
-  "systemE": {
+  "systemI": {
+    "name": "I",
     "axiom": "F",
-    "variables": ["F"],
-    "constants": ["[", "]", "+", "-","^", "&"],
-    "rules": {
-      "F": "FF-[-F+F+F]+[^F^F&F]F"
-    },
-    "angle": 23,
-    "iterations": 4
-  },
-  "systemD": {
-    "axiom": "G",
     "variables": ["F", "G"],
     "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
     "rules": {
-      "F": "FF",
-      "G": "F[-G]+F[G[-/F[\\^F]]]"
+      "F": "F[+G]F[-G]F[^G]F[&G]F[/G]F[\\G]",
+      "G": "FF+F"
     },
-    "angle": 20,
-    "iterations": 5
+    "angle": 22.7,
+    "iterations": 4
   }
 }

@@ -1,7 +1,14 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { generateLines } from './lsystem';
-import { systemF } from './data/test.json'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import {generateLines} from './lsystem';
+import {
+  systemC,
+  systemD,
+  systemE,
+  systemF,
+  systemH,
+  systemI,
+} from './data/test.json';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth - 100, window.innerHeight - 200);
@@ -11,12 +18,12 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   15,
   window.innerWidth / window.innerHeight,
-  .1,
+  0.1,
   1000,
 );
-const controls = new OrbitControls(camera, renderer.domElement)
+const controls = new OrbitControls(camera, renderer.domElement);
 
-scene.background = new THREE.Color(0xf0f8ff)
+scene.background = new THREE.Color(0xf0f8ff);
 
 // cube
 // const geometry = new THREE.BoxGeometry(10, 10, 2);
@@ -24,38 +31,70 @@ scene.background = new THREE.Color(0xf0f8ff)
 // const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
-const lineMaterial = new THREE.LineBasicMaterial({color: 'tomato', linewidth: 2, linecap: 'round'});
-const [instructions, lines] = generateLines(systemF)
+const lineMaterial = new THREE.LineBasicMaterial({
+  color: 'tomato',
+  linewidth: 2,
+  linecap: 'round',
+});
+const [instructions, lines] = generateLines(systemH);
 const divInstructions = document.createElement('div');
-const text = document.createElement('p');
-const instructionHeading = document.createElement('h3')
-document.body.append(divInstructions)
-divInstructions.appendChild(instructionHeading)
-divInstructions.appendChild(text)
-divInstructions.className = 'instructions'
-instructionHeading.innerHTML += 'Instructions'
-text.innerHTML += instructions;
+const shuffleButton = document.createElement('button');
+document.body.append(shuffleButton);
+document.body.append(divInstructions);
+divInstructions.className = 'instructions';
+shuffleButton.id = 'shuffle';
+shuffleButton.innerHTML += 'shuffle';
 
 const lSystem = new THREE.Group();
 
-lines.forEach(l => {
-  const geo = new THREE.BufferGeometry().setFromPoints(l)
-  const newLine = new THREE.Line(geo, lineMaterial)
+function shuffleSystems() {
+  const SYSTEMS = [systemC, systemD, systemE, systemF, systemH, systemI];
+  const index = Math.floor(Math.random() * SYSTEMS.length);
+  const [instructions, lines] = generateLines(SYSTEMS[index]);
 
-  lSystem.add(newLine)
-})
+  createLinesFromLSystem(SYSTEMS[index], instructions, lines);
+}
 
-lSystem.translateY(-15)
-scene.add(lSystem)
+shuffleButton.addEventListener('click', () => {
+  divInstructions.innerHTML = '';
+  shuffleSystems();
+});
 
-camera.lookAt(0, 0, -20)
+function createLinesFromLSystem(system, instructions, lines) {
+  lSystem.clear();
+  divInstructions.innerHTML = '';
+  lines.forEach(l => {
+    const geo = new THREE.BufferGeometry().setFromPoints(l);
+    const newLine = new THREE.Line(geo, lineMaterial);
+
+    lSystem.add(newLine);
+  });
+  divInstructions.innerHTML += `<h3>${system.name}</h3>`;
+  divInstructions.innerHTML += `<p><strong>seed</strong>: ${JSON.stringify(
+    system.axiom,
+  )}</p>`;
+  divInstructions.innerHTML += `<p><strong>rules</strong>: ${JSON.stringify(
+    system.rules,
+  )}</p>`;
+  divInstructions.innerHTML += `<p><strong>iterations</strong>: ${JSON.stringify(
+    system.iterations,
+  )}</p>`;
+  divInstructions.innerHTML += `<p>final output: ${instructions}</p>`;
+}
+
+createLinesFromLSystem(systemH, instructions, lines);
+lSystem.translateY(-15);
+
+scene.add(lSystem);
+
+camera.lookAt(0, 0, -20);
 camera.position.set(0, 10, 90);
 controls.update();
 
 function animate() {
   requestAnimationFrame(animate);
 
-  lSystem.rotateY(.01)
+  lSystem.rotateY(0.01);
   controls.update();
 
   renderer.render(scene, camera);
@@ -63,4 +102,4 @@ function animate() {
 
 animate();
 
-renderer.render(scene, camera)
+renderer.render(scene, camera);
