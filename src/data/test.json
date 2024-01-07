@@ -1,0 +1,68 @@
+{
+  "foo": {
+    "bar": "baz"
+  },
+  "systemA": {
+    "axiom": "A",
+    "variables": ["A", "B"],
+    "constants": [],
+    "rules": {
+      "A": "AB",
+      "B": "A"
+    },
+    "iterations": 7
+  },
+  "systemB": {
+    "axiom": "0",
+    "variables": ["0", "1"],
+    "constants": ["[", "]"],
+    "rules": {
+      "1": "11",
+      "0": "1[0]0"
+    },
+    "iterations": 3
+  },
+  "systemC": {
+    "axiom": "F",
+    "variables": ["F"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
+    "rules": {
+      "F": "F[+F]F[-F][F]"
+    },
+    "angle": 22.7,
+    "iterations": 4
+  },
+  "systemF": {
+    "axiom": "A",
+    "variables": ["A", "F", "S"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
+    "rules": {
+      "A": "[&FFA]///[&FFA]",
+      "F": "S////F",
+      "S": "\\F"
+    },
+    "angle": 22.7,
+    "iterations": 4
+  },
+  "systemE": {
+    "axiom": "F",
+    "variables": ["F"],
+    "constants": ["[", "]", "+", "-"],
+    "rules": {
+      "F": "F[+F]F[-F]F"
+    },
+    "angle": 25.7,
+    "iterations": 7
+  },
+  "systemD": {
+    "axiom": "G",
+    "variables": ["F", "G"],
+    "constants": ["[", "]", "+", "-"],
+    "rules": {
+      "F": "FF",
+      "G": "F[-G]+G"
+    },
+    "angle": 45,
+    "iterations": 3
+  }
+}

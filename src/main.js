@@ -1,45 +1,49 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { generateLines } from './lsystem';
+import { systemC } from './data/test.json'
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth - 100, window.innerHeight - 200);
+document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
   1,
-  500,
+  300,
 );
-
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth - 100, window.innerHeight - 200);
-document.body.appendChild(renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement)
+console.log(controls)
 
 // cube
-const geometry = new THREE.BoxGeometry(10, 10, 2);
-const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// const geometry = new THREE.BoxGeometry(10, 10, 2);
+// const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+// const cube = new THREE.Mesh(geometry, material);
+// scene.add(cube);
 
-// line
-const lineMaterial = new THREE.LineBasicMaterial({color: 0x0000ff});
-const points = [];
-points.push(new THREE.Vector3(-10, 0, 0));
-points.push(new THREE.Vector3(0, 10, 0));
-points.push(new THREE.Vector3(10, 0, 0));
+const lineMaterial = new THREE.LineBasicMaterial({color: 'tomato', linewidth: 2, linecap: 'round'});
 
-const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-
-const line = new THREE.Line(lineGeometry, lineMaterial);
-scene.add(line);
-
-camera.position.set(0, 0, 50);
-camera.lookAt(0, 0, 0);
+camera.position.set(0, 0, 3);
+controls.update();
 
 function animate() {
   requestAnimationFrame(animate);
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  controls.update();
 
   renderer.render(scene, camera);
 }
 
 animate();
+const lines = generateLines(systemC)
+
+lines.forEach(l => {
+  const geo = new THREE.BufferGeometry().setFromPoints(l)
+  const newLine = new THREE.Line(geo, lineMaterial)
+
+  scene.add(newLine)
+})
+
+renderer.render(scene, camera)
