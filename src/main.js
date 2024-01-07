@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { generateLines } from './lsystem';
-import { systemC } from './data/test.json'
+import { systemF } from './data/test.json'
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth - 100, window.innerHeight - 200);
@@ -25,7 +25,7 @@ console.log(controls)
 
 const lineMaterial = new THREE.LineBasicMaterial({color: 'tomato', linewidth: 2, linecap: 'round'});
 
-camera.position.set(0, 0, 3);
+camera.position.set(10, 10, 80);
 controls.update();
 
 function animate() {
@@ -37,7 +37,7 @@ function animate() {
 }
 
 animate();
-const lines = generateLines(systemC)
+const lines = generateLines(systemF)
 
 lines.forEach(l => {
   const geo = new THREE.BufferGeometry().setFromPoints(l)

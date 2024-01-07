@@ -81,50 +81,47 @@ function createLSystem({lSystem, variables, constants, rules, iterationCount}) {
   });
 }
 
-function draw(instructions, angle = 45, vector = new Vector3(0, 1, 0), orientation = new Euler(0, 0, 0, 'ZYX')) {
+function draw(instructions, angle = 45, vector = new Vector3(0, 1, 0), orientation = new Euler(0, 0, 0, 'XYZ')) {
   const stack = [];
   let lines = [];
 
   let position = [0, 0, 0];
   instructions.split('').forEach((instruction) => {
-    // console.log(instruction, position, orientation, stack)
     switch(instruction) {
       case '[':
         // push position and orientation
         // console.log('push', position, orientation)
-        stack.push({position: [...position], orientation: orientation.clone()})
+        stack.push({position: [...position], orientation: orientation.clone(), vector: vector.clone()})
         break;
       case ']':
         // pop position and orientation
         const res = stack.pop()
         position = res.position;
         orientation.copy(res.orientation);
-        // console.log('pop', position, orientation)
+        vector.copy(res.vector);
         break;
       case '+':
-        orientation.set(orientation.x, orientation.y, orientation.z + angle)
+        orientation.set(orientation.x, orientation.y, orientation.z + toRadians(angle))
         vector.applyEuler(orientation)
-        // console.log('new orientation', orientation)
         break;
       case '-':
-        orientation.set(orientation.x, orientation.y, orientation.z - angle)
+        orientation.set(orientation.x, orientation.y, orientation.z - toRadians(angle))
         vector.applyEuler(orientation)
-        // console.log('new orientation', orientation)
         break;
       case '&':
-        orientation.set(orientation.x, orientation.y - angle, orientation.z)
+        orientation.set(orientation.x, orientation.y - toRadians(angle), orientation.z)
         vector.applyEuler(orientation)
         break;
       case '^':
-        orientation.set(orientation.x, orientation.y + angle, orientation.z)
+        orientation.set(orientation.x, orientation.y + toRadians(angle), orientation.z)
         vector.applyEuler(orientation)
         break;
       case '\\':
-        orientation.set(orientation.x + angle, orientation.y, orientation.z)
+        orientation.set(orientation.x + toRadians(angle), orientation.y, orientation.z)
         vector.applyEuler(orientation)
         break;
       case '/':
-        orientation.set(orientation.x - angle, orientation.y, orientation.z)
+        orientation.set(orientation.x - toRadians(angle), orientation.y, orientation.z)
         vector.applyEuler(orientation)
         break;
       case '|':
@@ -170,11 +167,10 @@ function getNewPosition(orientation, vector = [0, 1, 0]) {
   console.log('x2',x,'y2',y,'z2',z)
   return [x, y, z]
 }
-
+*/
 function toRadians(angle) {
   return angle * (Math.PI / 180)
 }
-*/
 
 export function generateLines({
   axiom,

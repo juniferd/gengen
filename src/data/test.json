@@ -32,7 +32,7 @@
     "angle": 22.7,
     "iterations": 4
   },
-  "systemF": {
+  "systemG": {
     "axiom": "A",
     "variables": ["A", "F", "S"],
     "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
@@ -40,6 +40,16 @@
       "A": "[&FFA]///[&FFA]",
       "F": "S////F",
       "S": "\\F"
+    },
+    "angle": 22.7,
+    "iterations": 4
+  },
+  "systemF": {
+    "axiom": "F",
+    "variables": ["A", "F", "S"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
+    "rules": {
+      "F": "F[&+F]F[-/F][-\\F][&F]"
     },
     "angle": 22.7,
     "iterations": 4
