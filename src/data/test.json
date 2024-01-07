@@ -37,12 +37,12 @@
     "variables": ["A", "F", "S"],
     "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
     "rules": {
-      "A": "[&FFA]///[&FFA]",
-      "F": "S////F",
-      "S": "\\F"
+      "A": "[&-FFA]///[&^FFA]",
+      "F": "S//-//F[+FF]",
+      "S": "\\^F"
     },
     "angle": 22.7,
-    "iterations": 4
+    "iterations": 7
   },
   "systemF": {
     "axiom": "F",
@@ -57,22 +57,22 @@
   "systemE": {
     "axiom": "F",
     "variables": ["F"],
-    "constants": ["[", "]", "+", "-"],
+    "constants": ["[", "]", "+", "-","^", "&"],
     "rules": {
-      "F": "F[+F]F[-F]F"
+      "F": "FF-[-F+F+F]+[^F^F&F]F"
     },
-    "angle": 25.7,
-    "iterations": 7
+    "angle": 23,
+    "iterations": 4
   },
   "systemD": {
     "axiom": "G",
     "variables": ["F", "G"],
-    "constants": ["[", "]", "+", "-"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
     "rules": {
       "F": "FF",
-      "G": "F[-G]+G"
+      "G": "F[-G]+F[G[-/F[\\^F]]]"
     },
-    "angle": 45,
-    "iterations": 3
+    "angle": 20,
+    "iterations": 5
   }
 }
