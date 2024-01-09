@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         lSystem: resolve(__dirname, 'lSystem/index.html'),
+        veraMolnar: resolve(__dirname, 'veraMolnar/index.html'),
       },
     },
   },
