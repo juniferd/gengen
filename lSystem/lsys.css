@@ -1,28 +1,3 @@
-section#main {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-button {
-  align-self: center;
-  background: hsl(74 32% 76% / 75%);
-  padding: 5px;
-  border: 1px solid #000;
-  cursor: pointer;
-}
-
-button:hover {
-  background: hsl(74 32% 76% / 95%);
-}
-
-div#buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 10px;
-}
-
 .instructions {
   box-sizing: border-box;
   background: hsl(67 50% 86%/ 75%);
@@ -37,3 +12,6 @@ div#buttons {
   margin: 0 auto;
 }
 
+section#about {
+  width: calc(100vw - 100px);
+}

@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 0 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -7,3 +7,40 @@ body {
   background: hsl(52 94% 94%/ 50%);
   font-family: 'Courier New', courier, monospace;
 }
+
+a {
+  color: hsl(343.2 37.3% 48.8%);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  color: hsl(330 20.3% 27.1%);
+  border-bottom: 2px dashed hsl(330 20.3% 27.1%);
+}
+
+button {
+  align-self: center;
+  background: hsl(74 32% 76% / 75%);
+  padding: 5px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+button:hover {
+  background: hsl(74 32% 76% / 95%);
+}
+
+div#buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+section#main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+

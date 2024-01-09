@@ -1,4 +1,5 @@
-import { Line3, Vector3, Euler } from "three";
+import { Vector3, Euler } from "three";
+import { toRadians } from "./utilities";
 /*
  * an l-system (lindenmayer system) is a formal grammar consisting of an alphabet of symbols and a collection of production rules https://en.wikipedia.org/wiki/L-system
  * it's used to describe the behavior of plant cells/model the morphology of organisms/create fractal-like forms
@@ -167,9 +168,6 @@ function getNewPosition(orientation, vector = [0, 1, 0]) {
   return [x, y, z]
 }
 */
-function toRadians(angle) {
-  return angle * (Math.PI / 180)
-}
 
 export function generateLines({
   axiom,
