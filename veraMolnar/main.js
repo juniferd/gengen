@@ -3,6 +3,8 @@ import {toRadians} from '../src/utilities';
 const canvas = document.getElementById('molnar');
 const ctx = canvas.getContext('2d');
 const buttons = document.getElementById('buttons');
+canvas.width = 500;
+canvas.height = 500;
 
 function drawLines(translateX) {
   ctx.lineWidth = Math.floor(Math.random() * 10);
