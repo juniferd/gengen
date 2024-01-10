@@ -13,6 +13,7 @@ import {
 const renderer = new THREE.WebGLRenderer();
 const main = document.getElementById('main');
 const buttonRow = document.getElementById('buttons');
+const loading = document.getElementById('loading');
 
 renderer.setSize(window.innerWidth - 100, window.innerHeight - 200);
 main.appendChild(renderer.domElement);
@@ -65,6 +66,7 @@ function createLinesFromLSystem(system, instructions, lines) {
     system.iterations,
   )}</p>`;
   divInstructions.innerHTML += `<p>final output: ${instructions}</p>`;
+  loading.remove();
 }
 
 function animate() {

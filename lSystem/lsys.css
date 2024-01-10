@@ -12,6 +12,9 @@
   margin: 0 auto;
 }
 
+section#main {
+  min-height: 90vh;
+}
 section#about {
   width: calc(100vw - 100px);
 }
