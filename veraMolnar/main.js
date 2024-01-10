@@ -3,6 +3,7 @@ import {toRadians} from '../src/utilities';
 const canvas = document.getElementById('molnar');
 const ctx = canvas.getContext('2d');
 const buttons = document.getElementById('buttons');
+const about = document.getElementById('about')
 canvas.width = 500;
 canvas.height = 500;
 
@@ -44,7 +45,9 @@ function draw() {
   try {
     ctx.reset();
   } catch (err) {
-    console.log('cannot reset');
+    const hiddenText = about.getElementsByClassName('hidden')[0]
+    hiddenText.classList.remove('hidden');
+    hiddenText.ariaHidden = 'false';
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
