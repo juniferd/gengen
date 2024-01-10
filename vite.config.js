@@ -9,6 +9,7 @@ export default defineConfig({
         lSystem: resolve(__dirname, 'lSystem/index.html'),
         veraMolnar: resolve(__dirname, 'veraMolnar/index.html'),
         pixels: resolve(__dirname, 'pixels/index.html'),
+        penrose: resolve(__dirname, 'penrose/index.html'),
       },
     },
   },
