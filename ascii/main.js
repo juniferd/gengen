@@ -87,6 +87,8 @@ function getGrayscalePixel(data, print = false) {
 function createASCII() {
   canvasText.width = 500;
   canvasText.height = 500;
+  ctxText.fillStyle = 'white';
+  ctxText.fillRect(0, 0, 500, 500);
   const SIZE = 12;
   const rnd = Math.floor(Math.random() * 255)
   ctxText.font = `${SIZE}px monospace`;
@@ -96,7 +98,7 @@ function createASCII() {
       const {data} = ctxGray.getImageData(i, j, SIZE, SIZE);
       const gray = getGrayscalePixel(data);
       const chr = getASCII(gray);
-      ctxText.fillText(chr, i, j);
+      ctxText.fillText(chr, i-3, j+8);
     }
   }
   content.appendChild(canvasText);
@@ -110,3 +112,16 @@ function getASCII(val) {
 
 asciiDiv.className = 'ascii';
 asciiDiv.innerHTML += ASCIIS.join('');
+
+// TODO extract into shared component
+function createSnapshot() {
+  const snapshot = canvasText.toDataURL('image/jpeg', 1.0);
+  const a = document.createElement('a');
+  a.href = snapshot;
+  a.download = 'pixel.jpeg';
+  a.click();
+}
+const btnSnapshot = document.createElement('button');
+btnSnapshot.addEventListener('click', createSnapshot);
+btnSnapshot.innerHTML = 'download image';
+main.appendChild(btnSnapshot);
