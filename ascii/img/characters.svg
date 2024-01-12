@@ -1,0 +1,15 @@
+<svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" id="svgPreview">
+  <style>
+    div {
+      color: black;
+      font: 12px monospace;
+      height: 100%;
+      overflow: auto;
+    }
+  </style>
+
+  <foreignObject x="0" y="0" width="160" height="24" id="preview">
+    NnZzO\:.*@#-¶▓░
+  </foreignObject>
+</svg>
+

@@ -10,6 +10,7 @@ export default defineConfig({
         veraMolnar: resolve(__dirname, 'veraMolnar/index.html'),
         pixels: resolve(__dirname, 'pixels/index.html'),
         penrose: resolve(__dirname, 'penrose/index.html'),
+        ascii: resolve(__dirname, 'ascii/index.html'),
       },
     },
   },
