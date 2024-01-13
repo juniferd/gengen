@@ -105,5 +105,17 @@
     },
     "angle": 22.7,
     "iterations": 4
+  },
+  "systemJ": {
+    "name": "J",
+    "axiom": "A",
+    "variables": ["A", "B"],
+    "constants": ["[", "]", "+", "-", "&", "^", "\\", "/"],
+    "rules": {
+      "A": "A-B--B+A++AA+B-",
+      "B": "+A-BB--B-A++A+B"
+    },
+    "angle": 60,
+    "iterations": 4
   }
 }
