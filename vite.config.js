@@ -12,6 +12,7 @@ export default defineConfig({
         penrose: resolve(__dirname, 'penrose/index.html'),
         ascii: resolve(__dirname, 'ascii/index.html'),
         hexagons: resolve(__dirname, 'hexagons/index.html'),
+        anniAlbers: resolve(__dirname, 'anniAlbers/index.html'),
       },
     },
   },
