@@ -25,10 +25,26 @@ button {
   padding: 5px;
   border: 1px solid #000;
   cursor: pointer;
+  font-size: 0.95em;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button:hover {
   background: hsl(74 32% 76% / 95%);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label.inputFile {
+  align-self: center;
+  background: hsl(74 32% 76% / 75%);
+  padding: 5px;
+  border: 1px solid #000;
+  cursor: pointer;
+  font-size: .95em;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 div#buttons {
@@ -36,6 +52,15 @@ div#buttons {
   flex-direction: row;
   justify-content: center;
   gap: 10px;
+}
+
+div#content {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
 }
 
 section#main {

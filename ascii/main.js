@@ -2,6 +2,8 @@ import imgSrc from './img/pattern.png';
 
 const main = document.getElementById('main');
 const content = document.getElementById('content');
+const loading = document.getElementById('loading');
+const about = document.getElementById('about');
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d', {willReadFrequently: true});
 
@@ -37,21 +39,28 @@ ASCIIS.reverse();
 img.crossOrigin = 'anonymous';
 img.src = imgSrc;
 
+let imgHeight = 500;
+
 img.addEventListener('load', () => {
   canvas.width = 500;
-  canvas.height = 500;
-  const ht = Math.floor(img.height / (img.width / 500));
+  imgHeight = Math.floor(img.height / (img.width / 500));
+  canvas.height = imgHeight;
   ctx.fillStyle = 'white';
-  ctx.fillRect(0, 0, 500, ht);
-  ctx.drawImage(img, 0, 0, 500, ht);
+  ctx.fillRect(0, 0, 500, imgHeight);
+  ctx.drawImage(img, 0, 0, 500, imgHeight);
   content.appendChild(canvas);
+  if (loading) {
+    loading.remove();
+    about.classList.remove('hidden');
+  }
   createGrayscale();
   createASCII();
+  URL.revokeObjectURL(img.src)
 });
 
 function createGrayscale() {
   canvasGray.width = 500;
-  canvasGray.height = 500;
+  canvasGray.height = imgHeight;
 
   for (let x = 0; x < canvasGray.width; x++) {
     for (let y = 0; y < canvasGray.height; y++) {
@@ -86,19 +95,21 @@ function getGrayscalePixel(data, print = false) {
 
 function createASCII() {
   canvasText.width = 500;
-  canvasText.height = 500;
+  canvasText.height = imgHeight;
   ctxText.fillStyle = 'white';
-  ctxText.fillRect(0, 0, 500, 500);
+  ctxText.fillRect(0, 0, 500, imgHeight);
   const SIZE = 12;
-  const rnd = Math.floor(Math.random() * 255)
+  const rnd = Math.floor(Math.random() * 255);
   ctxText.font = `${SIZE}px monospace`;
   for (let i = 0; i < canvasText.width; i += SIZE) {
     for (let j = 0; j < canvasText.height; j += SIZE) {
-      ctxText.fillStyle = `rgb(${Math.floor(i - 32.5 * (500 / SIZE / 255))}, ${Math.floor(j * (500 / SIZE / 255))}, ${rnd})`;
+      ctxText.fillStyle = `rgb(${Math.floor(
+        i - 32.5 * (500 / SIZE / 255),
+      )}, ${Math.floor(j * (500 / SIZE / 255))}, ${rnd})`;
       const {data} = ctxGray.getImageData(i, j, SIZE, SIZE);
       const gray = getGrayscalePixel(data);
       const chr = getASCII(gray);
-      ctxText.fillText(chr, i-3, j+8);
+      ctxText.fillText(chr, i - 3, j + 8);
     }
   }
   content.appendChild(canvasText);
@@ -121,7 +132,14 @@ function createSnapshot() {
   a.download = 'pixel.jpeg';
   a.click();
 }
-const btnSnapshot = document.createElement('button');
+
+function handleFileChange(e) {
+  img.src = URL.createObjectURL(e.target.files[0])
+}
+
+const inputFile = document.getElementById('imgFile')
+inputFile.placeholder = 'try with your own image';
+inputFile.addEventListener('change', handleFileChange)
+
+const btnSnapshot = document.getElementById('btnDownload');
 btnSnapshot.addEventListener('click', createSnapshot);
-btnSnapshot.innerHTML = 'download image';
-main.appendChild(btnSnapshot);

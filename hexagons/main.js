@@ -1,4 +1,7 @@
-const main = document.getElementById('main');
+const mainContent = document.getElementById('content');
+const loading = document.getElementById('loading');
+const about= document.getElementById('about')
+
 Array(4)
   .fill()
   .forEach((_, i) => {
@@ -14,7 +17,9 @@ Array(4)
     } else {
       drawBoard(ctx, i, 18);
     }
-    main.appendChild(canvas);
+    mainContent.appendChild(canvas);
+    if (loading) loading.remove();
+    about.classList.remove('hidden');
   });
 
 function drawBoard(ctx, i, R) {
