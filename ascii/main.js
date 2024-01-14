@@ -43,6 +43,7 @@ img.crossOrigin = 'anonymous';
 img.src = imgSrc;
 
 let imgHeight = 500;
+let loadedImages = false;
 
 img.addEventListener('load', () => {
   canvas.width = 500;
@@ -59,9 +60,10 @@ img.addEventListener('load', () => {
   createGrayscale();
   createASCII();
   URL.revokeObjectURL(img.src)
-  labelImgFile.classList.remove('disabled');
+  labelInputFile.classList.remove('disabled');
   imgFile.disabled = false;
   btnSnapshot.disabled = false;
+  loadedImages = true;
 });
 
 function createGrayscale() {
@@ -110,8 +112,7 @@ function createASCII() {
   for (let i = 0; i < canvasText.width; i += SIZE) {
     for (let j = 0; j < canvasText.height; j += SIZE) {
       ctxText.fillStyle = `rgb(${Math.floor(
-        i - 32.5 * (500 / SIZE / 255),
-      )}, ${Math.floor(j * (500 / SIZE / 255))}, ${rnd})`;
+        i - 32.5 * (500 / SIZE / 255))}, ${Math.floor(j * (500 / SIZE / 255))}, ${rnd})`;
       const {data} = ctxGray.getImageData(i, j, SIZE, SIZE);
       const gray = getGrayscalePixel(data);
       const chr = getASCII(gray);
@@ -140,13 +141,20 @@ function createSnapshot() {
 }
 
 function handleFileChange(e) {
-  if (e.target.files[0].size > 10000000) {
-    alert('maybe try a smaller image < 10MB')
-  } else {
-    labelImgFile.classList.add('disabled')
-    imgFile.disabled = true;
-    btnSnapshot.disabled = true;
-    img.src = URL.createObjectURL(e.target.files[0])
+  loadedImages = false;
+  labelInputFile.classList.add('disabled')
+  imgFile.disabled = true;
+  btnSnapshot.disabled = true;
+  img.src = URL.createObjectURL(e.target.files[0])
+  setTimeout(checkTimeout, 5000)
+}
+
+function checkTimeout() {
+  if (!loadedImages) {
+    alert('something went wrong - try a different image')
+    labelInputFile.classList.remove('disabled');
+    imgFile.disabled = false;
+    btnSnapshot.disabled = false;
   }
 }
 
