@@ -47,6 +47,11 @@ label.inputFile {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+label.inputFile.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 div#buttons {
   display: flex;
   flex-direction: row;

@@ -4,6 +4,9 @@ const main = document.getElementById('main');
 const content = document.getElementById('content');
 const loading = document.getElementById('loading');
 const about = document.getElementById('about');
+const btnSnapshot = document.getElementById('btnDownload');
+const inputFile = document.getElementById('imgFile')
+const labelInputFile = document.getElementById('labelImgFile')
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d', {willReadFrequently: true});
 
@@ -56,6 +59,9 @@ img.addEventListener('load', () => {
   createGrayscale();
   createASCII();
   URL.revokeObjectURL(img.src)
+  labelImgFile.classList.remove('disabled');
+  imgFile.disabled = false;
+  btnSnapshot.disabled = false;
 });
 
 function createGrayscale() {
@@ -137,13 +143,14 @@ function handleFileChange(e) {
   if (e.target.files[0].size > 10000000) {
     alert('maybe try a smaller image < 10MB')
   } else {
+    labelImgFile.classList.add('disabled')
+    imgFile.disabled = true;
+    btnSnapshot.disabled = true;
     img.src = URL.createObjectURL(e.target.files[0])
   }
 }
 
-const inputFile = document.getElementById('imgFile')
 inputFile.placeholder = 'try with your own image';
 inputFile.addEventListener('change', handleFileChange)
 
-const btnSnapshot = document.getElementById('btnDownload');
 btnSnapshot.addEventListener('click', createSnapshot);
