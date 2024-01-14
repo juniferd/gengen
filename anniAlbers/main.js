@@ -15,6 +15,8 @@ const COLORS = [
   'rgba(255,10,255,.7)',
   'rgba(10,255,255,.7)',
   'rgba(255,255,10,.7)',
+  'rgba(100,255,100,.7)',
+  'rgba(50,50,70,.7)',
 ];
 const W = 500;
 const H = 500;
@@ -30,38 +32,59 @@ function fillNumbers() {
   const milliseconds = date.getMilliseconds();
   const unix = date.getTime();
   let res = '';
+  const counts = []
   const iters = [year, month, day, hour, minutes, seconds, milliseconds, unix];
   iters.forEach(num => {
-    res += decimalToBinary(num, 20);
+    const bins = decimalToBinary(num, 20);
+    res += bins;
+    counts.push(bins.length)
   });
 
-  return res.split('');
+  return [res.split(''), counts];
 }
 
 function drawTime() {
-  const binNums = fillNumbers();
-  let i = 0;
-  let j = 0;
+  const [binNums, countNums] = fillNumbers();
+  let binIndex = 0;
+  let colorIndex = 0;
+  let countIndex = 0;
+  let currCount = countNums[0];
 
   const step = 10;
   for (let y = 0; y < canvas.height; y += step) {
     for (let x = 0; x < canvas.width; x += step) {
-      if (i === binNums.length) {
-        i = 0;
+      if (binIndex === binNums.length) {
+        binIndex = 0;
       }
-      if (j === COLORS.length) {
-        j = 0;
+      if (colorIndex === COLORS.length) {
+        colorIndex = 0;
       }
-      const num = binNums[i];
-      const color = COLORS[j];
+      if (countIndex === countNums.length) {
+        countIndex = 0;
+        currCount = countNums[0]
+      }
+      const num = binNums[binIndex];
+      const color = COLORS[colorIndex];
       if (num === '1') {
         ctx.fillStyle = color;
       } else {
         ctx.fillStyle = 'rgba(255,255,255,.5)';
-        j += 1;
       }
-      ctx.fillRect(x, y, step, step);
-      i += 1;
+      if (y % 30 === 0) {
+        ctx.fillRect(x, y, step, step * 2);
+      } else if (y % 50 === 0) {
+        ctx.fillRect(x, y, step, step * 3);
+      } else {
+        ctx.fillRect(x, y, step, step);
+      }
+
+      binIndex += 1;
+      currCount -= 1;
+      if (currCount === 0) {
+        countIndex += 1;
+        currCount = countNums[countIndex]
+        colorIndex += 1;
+      }
     }
   }
 }
@@ -115,6 +138,7 @@ function init() {
   canvas.height = H;
   ctx.fillStyle = 'white';
   ctx.fillRect(0, 0, W, H);
+  drawTime()
   setInterval(drawTime, 1000);
   content.appendChild(canvas);
   loading.remove();
