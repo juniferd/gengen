@@ -134,7 +134,11 @@ function createSnapshot() {
 }
 
 function handleFileChange(e) {
-  img.src = URL.createObjectURL(e.target.files[0])
+  if (e.target.files[0].size > 10000000) {
+    alert('maybe try a smaller image < 10MB')
+  } else {
+    img.src = URL.createObjectURL(e.target.files[0])
+  }
 }
 
 const inputFile = document.getElementById('imgFile')
