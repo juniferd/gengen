@@ -58,17 +58,19 @@ function drawTime() {
         ctx.fillStyle = color;
       } else {
         ctx.fillStyle = 'rgba(255,255,255,.5)';
+        j += 1;
       }
       ctx.fillRect(x, y, step, step);
       i += 1;
-      j += 1;
     }
   }
 }
 
-function drawLatLong(binLat, binLong, step) {
+function drawLatLong(binLat, dirLat, binLong, dirLong, step) {
   let curr = 'LAT';
   let i = 0;
+  let startAngle = 0;
+  let endAngle = Math.PI;
 
   for (let x = 10; x < canvasGeo.width; x += step) {
     for (let y = 0; y < canvasGeo.height; y += step) {
@@ -82,6 +84,13 @@ function drawLatLong(binLat, binLong, step) {
       const num = curr === 'LAT' ? binLat[i] : binLong[i];
       const color =
         curr === 'LAT' ? 'rgba(155,100,100,.9)' : 'rgba(100,100,155,.9)';
+      if ((curr === 'LAT' && dirLat === -1) || (curr === 'LONG' && dirLong === -1)) {
+        startAngle = Math.PI;
+        endAngle = 2 * Math.PI;
+      } else {
+        startAngle = 0;
+        endAngle = Math.PI
+      }
       if (num === '1') {
         ctxGeo.fillStyle = color;
         ctxGeo.beginPath();
@@ -91,8 +100,8 @@ function drawLatLong(binLat, binLong, step) {
           step / 2,
           step / 2,
           Math.PI,
-          curr === 'LAT' ? 0 : Math.PI,
-          curr === 'LAT' ? Math.PI : 2 * Math.PI,
+          startAngle,
+          endAngle,
         );
         ctxGeo.fill();
       }
@@ -106,7 +115,7 @@ function init() {
   canvas.height = H;
   ctx.fillStyle = 'white';
   ctx.fillRect(0, 0, W, H);
-  setInterval(drawTime, 500);
+  setInterval(drawTime, 1000);
   content.appendChild(canvas);
   loading.remove();
   about.classList.remove('hidden')
@@ -122,7 +131,7 @@ function init() {
     canvasGeo.height = H;
     ctxGeo.fillStyle = 'white';
     ctxGeo.fillRect(0, 0, W, H);
-    drawLatLong(binLat, binLong, 20);
+    drawLatLong(binLat, Math.abs(position.coords.latitude) / position.coords.latitude, binLong, Math.abs(position.coords.longitude) / position.coords.longitude, 20);
     content.appendChild(canvasGeo);
   }
 
