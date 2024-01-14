@@ -136,7 +136,7 @@ function createSnapshot() {
   const snapshot = canvasText.toDataURL('image/jpeg', 1.0);
   const a = document.createElement('a');
   a.href = snapshot;
-  a.download = 'pixel.jpeg';
+  a.download = 'ascii.jpeg';
   a.click();
 }
 
