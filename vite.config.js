@@ -13,6 +13,7 @@ export default defineConfig({
         ascii: resolve(__dirname, 'ascii/index.html'),
         hexagons: resolve(__dirname, 'hexagons/index.html'),
         anniAlbers: resolve(__dirname, 'anniAlbers/index.html'),
+        wobbly: resolve(__dirname, 'wobbly/index.html'),
       },
     },
   },
