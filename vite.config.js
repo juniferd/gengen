@@ -14,6 +14,7 @@ export default defineConfig({
         hexagons: resolve(__dirname, 'hexagons/index.html'),
         anniAlbers: resolve(__dirname, 'anniAlbers/index.html'),
         wobbly: resolve(__dirname, 'wobbly/index.html'),
+        tenK: resolve(__dirname, 'tenK/index.html'),
       },
     },
   },
